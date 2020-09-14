@@ -1,3 +1,5 @@
+--psql -d imageboard -f images.sql
+
 DROP TABLE IF EXISTS images;
 
 CREATE TABLE images(
