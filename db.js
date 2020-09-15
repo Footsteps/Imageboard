@@ -4,6 +4,29 @@ const db = spicedPg(
         "postgres:angela:twilight@localhost:5432/imageboard"
 );
 
+//get images from database
 module.exports.getImages = () => {
     return db.query(`SELECT * FROM images`);
+};
+
+//add image to database
+module.exports.addImage = (url, username, title, description) => {
+    return db.query(
+        `
+    INSERT INTO images (url, username, title, description)
+    VALUES ($1, $2, $3, $4)
+    RETURNING *`,
+        [url, username, title, description]
+    );
+};
+
+module.exports.addSignature = (sign, user_id) => {
+    return db.query(
+        `
+    INSERT INTO signers (sign, user_id)
+    VALUES ($1, $2)
+    RETURNING id
+    `,
+        [sign, user_id]
+    );
 };

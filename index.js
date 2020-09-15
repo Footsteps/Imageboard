@@ -4,6 +4,7 @@ const express = require("express");
 const app = express();
 const s3 = require("./s3");
 const { s3Url } = require("./config");
+const db = require("./db");
 
 const multer = require("multer");
 const uidSafe = require("uid-safe");
@@ -28,8 +29,11 @@ const uploader = multer({
 });
 
 app.use(express.static("public"));
-
-const db = require("./db");
+app.use(
+    express.urlencoded({
+        extended: false,
+    })
+);
 
 app.get("/pictures", (req, res) => {
     console.log("GET /pictures has been hit");
@@ -50,6 +54,16 @@ app.get("/pictures", (req, res) => {
 
 //s3.upload gets used and is now safe at AMAZON
 //I can put file in database now
+/*
+in the client, the promise axios.post returns will be resolved with an object representing the response
+that object will have a property named data
+that data will be whatever you pass to res.json on the server
+image has to have the same property 
+--> get the object resp.data.image --> put it in array  
+    
+
+            */
+
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     console.log("file", req.file);
     /*
@@ -77,24 +91,47 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 
     */
     const filename = req.file.filename;
-    //const url = "https://s3.amatonaws.com/spicedling/${filename}"
-    //get url from config.json
+    //console.log(filename);
     const url = `${s3Url}${filename}`;
-
-    /*
-    db.addImage(url, req.body.title, req.body.description, req.body.username);
-    ({rows} => {
-        res.json({rows[0]})
-        -> image has to have the same property 
-        --> get the object resp.data.image --> put it in array  
-    })
-                //return *
-    */
+    //console.log(url);
+    console.log("req-body in post request: ", req.body);
     if (req.file) {
+        console.log("file is there, giving it to addImage now");
+        db.addImage(
+            url,
+            req.body.username,
+            req.body.title,
+            req.body.description
+        )
+            .then(({ rows }) => {
+                console.log("rows in add Image: ", rows[0]);
+                /*
+                rows in add Image:  [
+                     {
+                    id: 4,
+                    url: 'https://s3.amazonaws.com/spicedling/8JhpdRFOTe6SNE9HwUOy0NfH6YD6yFqa.jpg',
+                    username: 'Angela',
+                    title: 'Vietnam',
+                    description: 'Angkor Wat  again!',
+                    created_at: 2020-09-15T15:46:11.985Z
+                    }
+                ]
+                */
+                //let image = rows[0];
+                //console.log(image);
+                res.json({
+                    image: rows[0],
+                });
+            })
+            .catch((err) => {
+                console.log("err in addImage: ", err);
+            });
+
         //do data base insert of file
-        res.json({
+        /*res.json({
             success: true,
         });
+        */
     } else {
         res.json({
             success: false,

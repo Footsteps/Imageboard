@@ -64,12 +64,24 @@ console.log("woohoooo. sanity checking script.js");
                 formData.append("username", this.username);
                 formData.append("file", this.file);
 
+                var that = this;
+
                 axios
                     .post("/upload", formData)
                     .then(function (resp) {
+                        console.log("that in upload post: ", that);
+                        console.log(typeof that.cutePictures);
+
+                        console.log(
+                            "uuuuh, I am getting a response from upload!!!!"
+                        );
                         console.log("response from post upload ", resp);
                         //data: success: false (wenn ich kein Bild hochgeladen hab)
                         //data: {success: true}
+                        //get data & put it in an array
+                        console.log("resp.data.image: ", resp.data.image);
+                        console.log("cute Pictures: ", that.cutePictures);
+                        that.cutePictures.unshift(resp.data.image);
                     })
                     .catch(function (err) {
                         console.log("err from POST upload", err);
