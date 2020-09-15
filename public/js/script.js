@@ -1,5 +1,6 @@
 console.log("woohoooo. sanity checking script.js");
 //no ES6  in this file!!!
+//i see this console.logs in the browser
 
 (function () {
     new Vue({
@@ -7,7 +8,12 @@ console.log("woohoooo. sanity checking script.js");
         data: {
             heading: "I 😽 PIXELS",
             subheading: "Latest Images",
-            cuteAnimals: [],
+            cutePictures: [],
+            //these data properties will store values of input fields
+            title: "",
+            description: "",
+            username: "",
+            file: null,
         },
         mounted: function () {
             console.log("mounted is running!!!!");
@@ -18,17 +24,70 @@ console.log("woohoooo. sanity checking script.js");
                 .get("/pictures")
 
                 .then(function (resp) {
-                    console.log(
-                        "resp.data.cuteAnimals: ",
-                        resp.data.cuteAnimals
-                    );
+                    //console.log(
+                    //    "resp.data.cutePictures: ",
+                    //    resp.data.cutePictures
+                    //);
 
-                    that.cuteAnimals = resp.data.cuteAnimals;
-                    console.log("that.cuteAnimals: ", that.cuteAnimals);
+                    that.cutePictures = resp.data.cutePictures;
+                    //console.log("that.cutePictures: ", that.cutePictures);
                 })
                 .catch(function (err) {
-                    console.log("err in Get cute/animals: ", err);
+                    console.log("err in Get cutePictures: ", err);
                 });
+        },
+        methods: {
+            handleClick: function (e) {
+                e.preventDefault();
+                console.log("this! ", this);
+                /*
+                cutePictures: Array(3)
+                description: "a"
+                file: File
+                    name: "IMG_0239.JPG"
+                    size: 1038994
+                    type: image/jpeg
+                    webkitRelativePath: ""
+                heading
+                subheading
+                data: 
+                    cutePictures: Array(3)
+                    description: "a"
+                    file: File
+                    title: "a"
+                    username: "a"
+                */
+
+                var formData = new FormData();
+                formData.append("title", this.title);
+                formData.append("description", this.description);
+                formData.append("username", this.username);
+                formData.append("file", this.file);
+
+                axios
+                    .post("/upload", formData)
+                    .then(function (resp) {
+                        console.log("response from post upload ", resp);
+                        //data: success: false (wenn ich kein Bild hochgeladen hab)
+                        //data: {success: true}
+                    })
+                    .catch(function (err) {
+                        console.log("err from POST upload", err);
+                    });
+            },
+            handleChange: function (e) {
+                console.log("handleChange is running!");
+                console.log("file: ", e.target.files[0]);
+                /*
+                file: 
+                name: "IMG_0239.JPG"
+                size: 1038994
+                type: image/jpeg
+                webkitRelativePath: ""
+                */
+
+                this.file = e.target.files[0];
+            },
         },
     });
 })();
