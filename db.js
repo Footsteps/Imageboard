@@ -19,14 +19,3 @@ module.exports.addImage = (url, username, title, description) => {
         [url, username, title, description]
     );
 };
-
-module.exports.addSignature = (sign, user_id) => {
-    return db.query(
-        `
-    INSERT INTO signers (sign, user_id)
-    VALUES ($1, $2)
-    RETURNING id
-    `,
-        [sign, user_id]
-    );
-};
