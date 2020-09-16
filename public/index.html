@@ -50,13 +50,13 @@
         <div v-else>No cute pictures...</div>
         <!-- add modal with component-->
         
-        <my-first-component v-model="name" :picture-id="pictureId" v-if='showModal' :changed="updateCityName"></first-component>
-    </main>
+        <my-first-component v-model="name" :picture-id="pictureId" v-if='showModal' @close="closeModal"></first-component>
+</main>
 
     <script id="my-first-component" type="text/x-template">
         <div id="myModal" class="modal">
             <!-- req.body.name-->
-            <button @click="changed" class="close">X</button>
+            <button @click="handleClose" class="close">X</button>
             <div class="modal-content">
                 
                 <img v-bind:src="url" width="100%" height="80%"/>

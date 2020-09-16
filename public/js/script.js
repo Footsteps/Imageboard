@@ -74,9 +74,9 @@ console.log("woohoooo. sanity checking script.js");
                     });
             },
 
-            changed: function (e) {
-                //this.button = "I was clicked!!!!!";
-                this.$emit("changed", e.target.value);
+            handleClose: function (e) {
+                console.log("x was clicked!!");
+                this.$emit("close");
             },
         },
     });
@@ -128,9 +128,11 @@ console.log("woohoooo. sanity checking script.js");
                 this.showModal = true;
                 this.pictureId = id;
             },
-            updateCityName: function () {
+            closeModal: function () {
+                console.log("trying to use emit for closing");
                 this.showModal = false;
             },
+
             handleClick: function (e) {
                 e.preventDefault();
                 console.log("this! ", this);
