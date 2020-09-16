@@ -13,6 +13,8 @@ console.log("woohoooo. sanity checking script.js");
                 title: "",
                 description: "",
                 comments: "",
+                username: "",
+                comment: "",
             };
         },
         //mounted will run as soon as html is rendered on screen
@@ -21,12 +23,24 @@ console.log("woohoooo. sanity checking script.js");
             console.log("this in component: ", this);
             console.log("this in component: ", this.pictureId);
             let id = this.pictureId;
+
+            var that = this;
+            console.log("that in component");
             //i can use axios to make a request to server to get data
             axios
-                .get("/modal", id)
+                .get(`/modal/${this.pictureId}`)
 
                 .then(function (resp) {
-                    console.log("response in get comments: ", resp);
+                    //console.log("response in get comments: ", resp);
+                    console.log(
+                        "resp.data.image in component modal: ",
+                        resp.data.image[0]
+                    );
+
+                    that.url = resp.data.image[0].url;
+                    that.title = resp.data.image[0].title;
+                    that.description = resp.data.image[0].description;
+                    //that.comments = "heading was clicked!!!";
                 })
                 .catch(function (err) {
                     console.log("err in Get comments: ", err);
@@ -34,14 +48,31 @@ console.log("woohoooo. sanity checking script.js");
         },
         //all event handlers go in here!!!
         methods: {
-            /*
-            handleClick() {
-                this.url = "heading was clicked!!!";
-                this.title = "heading was clicked!!!";
-                this.description = "heading was clicked!!!";
-                this.comments = "heading was clicked!!!";
+            clickButton: function (e) {
+                e.preventDefault();
+                //console.log("this in click button! ", this.username);
+                //console.log("this in click button! ", this.comment);
+                var that = this;
+                //console.log("that picture id: ", that.pictureId);
+
+                axios
+                    .post(`/comments/${that.pictureId}`, {
+                        username: that.username,
+                        comment: that.comment,
+                    })
+                    .then(function (resp) {
+                        //console.log("there is a respnse from insert comment");
+                        //console.log("that in comments post: ", that);
+                        //console.log(
+                        //    "response in post comment",
+                        //    resp.data.comment.comment
+                        //);
+                        that.comments = resp.data.comment.comment;
+                    })
+                    .catch(function (err) {
+                        console.log("error from post comments", err);
+                    });
             },
-            */
         },
     });
 
@@ -95,6 +126,7 @@ console.log("woohoooo. sanity checking script.js");
             handleClick: function (e) {
                 e.preventDefault();
                 console.log("this! ", this);
+
                 /*
                 cutePictures: Array(3)
                 description: "a"

@@ -53,14 +53,53 @@ app.get("/pictures", (req, res) => {
         });
 });
 
-app.get("/modal", (req, res) => {
+app.get("/modal/:pictureId", (req, res) => {
     console.log("get modal was hit!!!");
-    db.modalImage(id)
+    const pictureId = req.params.pictureId;
+    //console.log(req.params);
+    //console.log(pictureId);
+
+    db.modalImage(pictureId)
         .then(({ rows }) => {
-            console.log("rows");
+            console.log("rows", rows);
+            /*rows [
+  {
+    id: 2,
+    url: 'https://s3.amazonaws.com/spicedling/wg8d94G_HrWdq7bU_2wT6Y6F3zrX-kej.jpg',
+    username: 'discoduck',
+    title: 'Elvis',
+    description: "We can't go on together with suspicious minds.",
+    created_at: 2020-09-14T15:39:24.455Z
+  }
+]
+*/
+
+            res.json({
+                image: rows,
+            });
         })
         .catch((err) => {
             console.log("err in modal: ", err);
+        });
+});
+
+app.post("/comments/:pictureId", (req, res) => {
+    console.log("post comments was hit!!!");
+    const pictureId = req.params.pictureId;
+    //console.log(req.body.username);
+    //console.log(req.body.comment);
+    //console.log(pictureId);
+
+    db.insertComment(req.body.username, req.body.comment, pictureId)
+        .then(({ rows }) => {
+            console.log("rows in insert comment!!!", rows[0]);
+
+            res.json({
+                comment: rows[0],
+            });
+        })
+        .catch((err) => {
+            console.log("err in insert comment: ", err);
         });
 });
 

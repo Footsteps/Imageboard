@@ -48,7 +48,7 @@
                 
         </div>
         <div v-else>No cute pictures...</div>
-        <!-- add condition to compoent-->
+        <!-- add modal with component-->
         <h3 @click="handleClickModal">cute PIctures: </h3>
         <my-first-component :picture-id="pictureId" v-if='showModal'></first-component>
     </main>
@@ -57,10 +57,20 @@
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <img v-bind:src="url" width="100%" height="80%"/>
-                <h1>hello there</h1>
-                <p>title</p>
-                <p>description</p>
-                <div>coments go here</div>
+                <h1>Hello there!</h1>
+                <p>Thanks for looking closer at my picture called {{title}}!</p>
+                <p>"{{description}}"</p>
+                <p>If you want, please leave a comment 🙂</p>
+            
+                    
+            <!-- req.body.name-->
+                        <input v-model="username" type="text" name="username" placeholder="username">
+                        <input v-model="comment" type="text" name="comment" placeholder="comment">
+                        
+                        <button @click="clickButton">Submit!</button>
+                
+                </div>
+                <p>"{{comments}}"</p>
             </div>
         </div>
 
