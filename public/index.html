@@ -55,7 +55,9 @@
 
     <script id="my-first-component" type="text/x-template">
         <div id="myModal" class="modal">
+            <button @click="handleClose" class="close">X</button>
             <div class="modal-content">
+                
                 <img v-bind:src="url" width="100%" height="80%"/>
                 <h1>Hello there!</h1>
                 <p>Thanks for looking closer at my picture called {{title}}!</p>
@@ -68,9 +70,10 @@
                         <input v-model="comment" type="text" name="comment" placeholder="comment">
                         
                         <button @click="clickButton">Submit!</button>
+                <p>{{oldComments}}</p>
                 
                 </div>
-                <p>"{{comments}}"</p>
+                
             </div>
         </div>
 

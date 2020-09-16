@@ -12,7 +12,7 @@ console.log("woohoooo. sanity checking script.js");
                 url: "",
                 title: "",
                 description: "",
-                comments: "",
+                oldComments: "",
                 username: "",
                 comment: "",
             };
@@ -67,7 +67,7 @@ console.log("woohoooo. sanity checking script.js");
                         //    "response in post comment",
                         //    resp.data.comment.comment
                         //);
-                        that.comments = resp.data.comment.comment;
+                        that.oldComments = resp.data.comment.comment;
                     })
                     .catch(function (err) {
                         console.log("error from post comments", err);
