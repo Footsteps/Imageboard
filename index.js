@@ -34,6 +34,7 @@ app.use(
         extended: false,
     })
 );
+app.use(express.json());
 
 app.get("/pictures", (req, res) => {
     console.log("GET /pictures has been hit");
@@ -52,17 +53,16 @@ app.get("/pictures", (req, res) => {
         });
 });
 
-//s3.upload gets used and is now safe at AMAZON
-//I can put file in database now
-/*
-in the client, the promise axios.post returns will be resolved with an object representing the response
-that object will have a property named data
-that data will be whatever you pass to res.json on the server
-image has to have the same property 
---> get the object resp.data.image --> put it in array  
-    
-
-            */
+app.get("/modal", (req, res) => {
+    console.log("get modal was hit!!!");
+    db.modalImage(id)
+        .then(({ rows }) => {
+            console.log("rows");
+        })
+        .catch((err) => {
+            console.log("err in modal: ", err);
+        });
+});
 
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     console.log("file", req.file);

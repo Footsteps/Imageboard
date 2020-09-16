@@ -3,12 +3,59 @@ console.log("woohoooo. sanity checking script.js");
 //i see this console.logs in the browser
 
 (function () {
+    Vue.component("my-first-component", {
+        template: "#my-first-component",
+        //tell component that it will be passed a props --> array of strings
+        props: ["pictureId"],
+        data: function () {
+            return {
+                url: "",
+                title: "",
+                description: "",
+                comments: "",
+            };
+        },
+        //mounted will run as soon as html is rendered on screen
+        mounted: function () {
+            //console.log("my component has mounted!!!!");
+            console.log("this in component: ", this);
+            console.log("this in component: ", this.pictureId);
+            let id = this.pictureId;
+            //i can use axios to make a request to server to get data
+            axios
+                .get("/modal", id)
+
+                .then(function (resp) {
+                    console.log("response in get comments: ", resp);
+                })
+                .catch(function (err) {
+                    console.log("err in Get comments: ", err);
+                });
+        },
+        //all event handlers go in here!!!
+        methods: {
+            /*
+            handleClick() {
+                this.url = "heading was clicked!!!";
+                this.title = "heading was clicked!!!";
+                this.description = "heading was clicked!!!";
+                this.comments = "heading was clicked!!!";
+            },
+            */
+        },
+    });
+
     new Vue({
         el: "main",
         data: {
             heading: "I 😽 PIXELS",
             subheading: "Latest Images",
             cutePictures: [],
+            //add property showModal for component --> show Modal wil not be rendered unless it becomes true
+            showModal: false,
+            //add property of animal that was clicked
+            pictureId: null,
+            //use props to pass info down to child
             //these data properties will store values of input fields
             title: "",
             description: "",
@@ -37,6 +84,14 @@ console.log("woohoooo. sanity checking script.js");
                 });
         },
         methods: {
+            //add method for component showModal
+            //and attach function to html
+            handleClickModal: function (id) {
+                //console.log("handleclick modal!!!");
+                console.log("picture id in vue instance: ", id);
+                this.showModal = true;
+                this.pictureId = id;
+            },
             handleClick: function (e) {
                 e.preventDefault();
                 console.log("this! ", this);

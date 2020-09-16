@@ -8,10 +8,13 @@
 </head>
 <body>
     
+
     <main>
+        
+        
         <h1>{{heading}}</h1>
         <h2>{{subheading}}</h2>
-
+        
         <!-- form for uploading pictures-->
         <form>
             <!-- req.body.name-->
@@ -27,17 +30,44 @@
 
         <!-- rendering the pictures-->
         <div v-if='cutePictures.length > 0' class="images">
-            <div class="card" v-for="picture in cutePictures">
+           
+            <div class="container" v-for="picture in cutePictures" @click="handleClickModal(picture.id)">
+                
+
                 <img v-bind:src="picture.url" width="100%" height="80%"/>
-                <div class="container">
+                <div class="card">
                     <p>{{picture.title}}</p>
                 </div>
             </div>
-                
+        
+
+</div>
+  
+
+
                 
         </div>
         <div v-else>No cute pictures...</div>
+        <!-- add condition to compoent-->
+        <h3 @click="handleClickModal">cute PIctures: </h3>
+        <my-first-component :picture-id="pictureId" v-if='showModal'></first-component>
     </main>
+
+    <script id="my-first-component" type="text/x-template">
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <img v-bind:src="url" width="100%" height="80%"/>
+                <h1>hello there</h1>
+                <p>title</p>
+                <p>description</p>
+                <div>coments go here</div>
+            </div>
+        </div>
+
+</script>
+    
+   
+
     
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>

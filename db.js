@@ -19,3 +19,8 @@ module.exports.addImage = (url, username, title, description) => {
         [url, username, title, description]
     );
 };
+
+//get image for modal
+module.exports.modalImage = (id) => {
+    return db.query(`SELECT * FROM images where  id = $1`, [id]);
+};
