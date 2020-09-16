@@ -73,6 +73,11 @@ console.log("woohoooo. sanity checking script.js");
                         console.log("error from post comments", err);
                     });
             },
+
+            changed: function (e) {
+                //this.button = "I was clicked!!!!!";
+                this.$emit("changed", e.target.value);
+            },
         },
     });
 
@@ -122,6 +127,9 @@ console.log("woohoooo. sanity checking script.js");
                 console.log("picture id in vue instance: ", id);
                 this.showModal = true;
                 this.pictureId = id;
+            },
+            updateCityName: function () {
+                this.showModal = false;
             },
             handleClick: function (e) {
                 e.preventDefault();
