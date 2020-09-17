@@ -8,20 +8,36 @@
 </head>
 <body>
     <main>
+        <div class="heading_form">
         <h1>{{heading}}</h1>
-        <h2>{{subheading}}</h2>
+        
         
         <!-- form for uploading iages-->
+        <div class="box">
         <form>
+            <h2 class="text-center">Add an Image</h2>
+            <div class="input-container">
             <!-- req.body.name-->
-            <input v-model="title" type="text" name="title" placeholder="title">
-            <input v-model="description" type="text" name="description" placeholder="description">
-            <input v-model="username" type="text" name="username" placeholder="username">
+            <input v-model="title" type="text" name="title" placeholder="title" autocomplete="off">
+                
+            
+            <input id="desc" v-model="description" type="text" name="description" placeholder="Description" autocomplete="off">
+            
+            
+            <input v-model="username" type="text" name="username" placeholder="Username" autocomplete="off">
+            
+            
+            <input id="file" class="inputfile" @change="handleChange" type="file" name="file" accept="image/*">
+            <label for="file">Choose a file</label>  
 
-            <input @change="handleChange" type="file" name="file" accept="image/*">
-            <button @click="handleClick">submit</button>
+            <button class="btn" @click="handleClick">submit</button>
+            </div>
         </form>
+        </div>
+        </div>
 
+        <div class="subheading_pictures">
+        <h2>{{subheading}}</h2>
         <!-- rendering the images-->
         <div v-if='cuteImages.length > 0' class="images">
            
@@ -42,7 +58,7 @@
 
         <!-- modal with component-->
         <my-first-component :image-id="imageId" v-if='imageId' @close="closeModal"></first-component>
-
+    </div>
 
 </main>
 

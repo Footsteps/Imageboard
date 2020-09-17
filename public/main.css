@@ -7,9 +7,129 @@
     color: #440047;
 }
 
-h1,
-h2 {
+.text-center {
+    color: #440047;
+
+    font-size: 23px;
+    padding-top: 0.5%;
+    display: block;
     text-align: center;
+}
+.box {
+    background-color: #fff;
+    opacity: 0.8;
+    border: 3px solid #440047;
+
+    border-radius: 3px 15px 5px 30px;
+    /*padding: 70px 100px;*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.input-container {
+    position: relative;
+    padding: 0.5%;
+}
+
+.input-container input {
+    border: 0;
+    margin: 3%;
+    border-bottom: 1px solid #555;
+    background: transparent;
+    font-size: 1em;
+    color: #440047;
+}
+
+.input-container input:focus {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #440047;
+}
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.btn {
+    background-color: #440047;
+    outline: none;
+    border: 1px solid grey;
+    color: #fff;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    /*margin-top: 0.2%;*/
+    margin-bottom: 0.2%;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.inputfile + label {
+    font-size: 1em;
+    color: white;
+    background-color: #440047;
+    display: inline-block;
+    cursor: pointer;
+    padding-right: 5%;
+    height: 40px;
+
+    text-transform: uppercase;
+    outline: none;
+    padding: 10px 10px;
+    margin-top: 0.2%;
+
+    border-radius: 2px;
+}
+
+#file {
+    color: grey;
+    padding-left: 0.5%;
+}
+
+#desc {
+    width: 50%;
+}
+
+::-webkit-input-placeholder {
+    /* WebKit browsers */
+}
+:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    padding-left: 0.5%;
+    opacity: 1;
+}
+::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    padding-left: 0.5%;
+    opacity: 1;
+}
+:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    padding-left: 0.5%;
+}
+
+.images p {
+    background-color: white;
+}
+h1 {
+    margin-bottom: 3%;
+}
+
+.heading_form {
+    text-align: center;
+    border: 1px solid #440047;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 3%;
+}
+
+.subheading_pictures {
+    text-align: center;
+    margin-top: 0.5%;
+    border: 1px solid #440047;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 3%;
 }
 
 .images {
@@ -23,6 +143,8 @@ h2 {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     margin: 1em;
+    padding: 1em;
+    background-color: white;
 }
 
 .container:hover {
@@ -31,6 +153,7 @@ h2 {
 
 .card {
     padding: 2px 16px;
+    background-color: white;
 }
 
 .modal {
@@ -64,5 +187,5 @@ h2 {
 .more-button {
     height: 50px;
     width: 200px;
-    margin-left: 40%;
+    text-align: center;
 }

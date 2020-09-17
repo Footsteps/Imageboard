@@ -133,10 +133,7 @@ console.log("woohoooo. sanity checking script.js");
                 .get("/images")
 
                 .then(function (resp) {
-                    //console.log(
-                    //    "resp.data.cuteImages: ",
-                    //    resp.data.cuteImages
-                    //);
+                    console.log("resp.data.cuteImages: ", resp.data.cuteImages);
 
                     that.cuteImages = resp.data.cuteImages;
                     console.log("that in get images", that.cuteImages);
