@@ -220,6 +220,17 @@ console.log("woohoooo. sanity checking script.js");
 
                         that.cuteImages.push(...resp.data.moreImages);
                         console.log("that.cuteImages, ", that.cuteImages);
+
+                        let arr = that.cuteImages;
+                        let arrLast = arr[arr.length - 1];
+                        console.log("arr Last", arrLast);
+                        let lastId = arrLast.id;
+                        console.log(lastId);
+                        that.lastId = lastId;
+                        console.log(
+                            "that hopefully with lastId again in handlemore: ",
+                            that
+                        );
                     })
                     .catch(function (err) {
                         console.log("err in Get comments: ", err);
