@@ -24,27 +24,9 @@ console.log("woohoooo. sanity checking script.js");
             console.log("this in component: ", this.imageId);
             let id = this.imageId;
 
-            var that = this;
             console.log("that in component");
             //i can use axios to make a request to server to get data
-            axios
-                .get(`/modal/${this.imageId}`)
-
-                .then(function (resp) {
-                    //console.log("response in get comments: ", resp);
-                    console.log(
-                        "resp.data.image in component modal: ",
-                        resp.data.image[0]
-                    );
-
-                    that.url = resp.data.image[0].url;
-                    that.title = resp.data.image[0].title;
-                    that.description = resp.data.image[0].description;
-                    //that.comments = "heading was clicked!!!";
-                })
-                .catch(function (err) {
-                    console.log("err in Get comments: ", err);
-                });
+            this.getModalImage(this);
         },
         //adding watchers!!!
         watch: {
@@ -59,28 +41,8 @@ console.log("woohoooo. sanity checking script.js");
                     console.log("imageID  is not a number!!!");
                     that.$emit("close");
                 } else {
-                    axios
-                        .get(`/modal/${this.imageId}`)
-
-                        .then(function (resp) {
-                            if (resp.data.image[0] == undefined) {
-                                console.log("image is undefined!!!");
-                                that.$emit("close");
-                            }
-
-                            console.log(
-                                "resp.data.image in component modal: ",
-                                resp.data.image[0]
-                            );
-
-                            that.url = resp.data.image[0].url;
-                            that.title = resp.data.image[0].title;
-                            that.description = resp.data.image[0].description;
-                            //that.comments = "heading was clicked!!!";
-                        })
-                        .catch(function (err) {
-                            console.log("err in Get comments: ", err);
-                        });
+                    console.log("incluce get modalImage");
+                    this.getModalImage(this);
                 }
             },
         },
@@ -116,6 +78,30 @@ console.log("woohoooo. sanity checking script.js");
             handleClose: function (e) {
                 console.log("x was clicked!!");
                 this.$emit("close");
+            },
+            getModalImage: function (arg) {
+                var that = arg;
+                console.log("getModalImage is running!!!");
+                console.log(("that in get Modal image:", that));
+
+                axios
+                    .get(`/modal/${that.imageId}`)
+
+                    .then(function (resp) {
+                        //console.log("response in get comments: ", resp);
+                        console.log(
+                            "resp.data.image in component modal: ",
+                            resp.data.image[0]
+                        );
+
+                        that.url = resp.data.image[0].url;
+                        that.title = resp.data.image[0].title;
+                        that.description = resp.data.image[0].description;
+                        //that.comments = "heading was clicked!!!";
+                    })
+                    .catch(function (err) {
+                        console.log("err in Get modalImage: ", err);
+                    });
             },
         },
     });
