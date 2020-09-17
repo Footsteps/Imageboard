@@ -6,7 +6,7 @@ console.log("woohoooo. sanity checking script.js");
     Vue.component("my-first-component", {
         template: "#my-first-component",
         //tell component that it will be passed a props --> array of strings
-        props: ["pictureId"],
+        props: ["imageId"],
         data: function () {
             return {
                 url: "",
@@ -21,14 +21,14 @@ console.log("woohoooo. sanity checking script.js");
         mounted: function () {
             //console.log("my component has mounted!!!!");
             console.log("this in component: ", this);
-            console.log("this in component: ", this.pictureId);
-            let id = this.pictureId;
+            console.log("this in component: ", this.imageId);
+            let id = this.imageId;
 
             var that = this;
             console.log("that in component");
             //i can use axios to make a request to server to get data
             axios
-                .get(`/modal/${this.pictureId}`)
+                .get(`/modal/${this.imageId}`)
 
                 .then(function (resp) {
                     //console.log("response in get comments: ", resp);
@@ -53,10 +53,10 @@ console.log("woohoooo. sanity checking script.js");
                 //console.log("this in click button! ", this.username);
                 //console.log("this in click button! ", this.comment);
                 var that = this;
-                //console.log("that picture id: ", that.pictureId);
+                //console.log("that image id: ", that.imageId);
 
                 axios
-                    .post(`/comments/${that.pictureId}`, {
+                    .post(`/comments/${that.imageId}`, {
                         username: that.username,
                         comment: that.comment,
                     })
@@ -86,17 +86,18 @@ console.log("woohoooo. sanity checking script.js");
         data: {
             heading: "I 😽 PIXELS",
             subheading: "Latest Images",
-            cutePictures: [],
+            cuteImages: [],
             //add property showModal for component --> show Modal wil not be rendered unless it becomes true
             showModal: false,
             //add property of animal that was clicked
-            pictureId: null,
+            imageId: null,
             //use props to pass info down to child
             //these data properties will store values of input fields
             title: "",
             description: "",
             username: "",
             file: null,
+            lastId: null,
         },
         mounted: function () {
             console.log("mounted is running!!!!");
@@ -104,19 +105,26 @@ console.log("woohoooo. sanity checking script.js");
             var that = this;
 
             axios
-                .get("/pictures")
+                .get("/images")
 
                 .then(function (resp) {
                     //console.log(
-                    //    "resp.data.cutePictures: ",
-                    //    resp.data.cutePictures
+                    //    "resp.data.cuteImages: ",
+                    //    resp.data.cuteImages
                     //);
 
-                    that.cutePictures = resp.data.cutePictures;
-                    //console.log("that.cutePictures: ", that.cutePictures);
+                    that.cuteImages = resp.data.cuteImages;
+                    console.log("that in get images", that.cuteImages);
+                    let arr = that.cuteImages;
+                    let arrLast = arr[arr.length - 1];
+                    console.log("arr Last", arrLast);
+                    let lastId = arrLast.id;
+                    console.log(lastId);
+                    that.lastId = lastId;
+                    console.log("that hopefully with lastId: ", that);
                 })
                 .catch(function (err) {
-                    console.log("err in Get cutePictures: ", err);
+                    console.log("err in Get cuteImages: ", err);
                 });
         },
         methods: {
@@ -124,9 +132,9 @@ console.log("woohoooo. sanity checking script.js");
             //and attach function to html
             handleClickModal: function (id) {
                 //console.log("handleclick modal!!!");
-                console.log("picture id in vue instance: ", id);
+                console.log("image id in vue instance: ", id);
                 this.showModal = true;
-                this.pictureId = id;
+                this.imageId = id;
             },
             closeModal: function () {
                 console.log("trying to use emit for closing");
@@ -138,7 +146,7 @@ console.log("woohoooo. sanity checking script.js");
                 console.log("this! ", this);
 
                 /*
-                cutePictures: Array(3)
+                cuteImages: Array(3)
                 description: "a"
                 file: File
                     name: "IMG_0239.JPG"
@@ -148,7 +156,7 @@ console.log("woohoooo. sanity checking script.js");
                 heading
                 subheading
                 data: 
-                    cutePictures: Array(3)
+                    cuteImages: Array(3)
                     description: "a"
                     file: File
                     title: "a"
@@ -167,7 +175,7 @@ console.log("woohoooo. sanity checking script.js");
                     .post("/upload", formData)
                     .then(function (resp) {
                         console.log("that in upload post: ", that);
-                        console.log(typeof that.cutePictures);
+                        console.log(typeof that.cuteImages);
 
                         console.log(
                             "uuuuh, I am getting a response from upload!!!!"
@@ -177,8 +185,8 @@ console.log("woohoooo. sanity checking script.js");
                         //data: {success: true}
                         //get data & put it in an array
                         console.log("resp.data.image: ", resp.data.image);
-                        console.log("cute Pictures: ", that.cutePictures);
-                        that.cutePictures.unshift(resp.data.image);
+                        console.log("cute Images: ", that.cuteImages);
+                        that.cuteImages.unshift(resp.data.image);
                     })
                     .catch(function (err) {
                         console.log("err from POST upload", err);
@@ -196,6 +204,26 @@ console.log("woohoooo. sanity checking script.js");
                 */
 
                 this.file = e.target.files[0];
+            },
+            handleMore: function (e) {
+                e.preventDefault();
+                console.log("tthis in handleMore: ", this);
+                console.log("this lastId in handlemore! ", this.lastId);
+                var that = this;
+
+                //i can use axios to make a request to server to get data
+                axios
+                    .get(`/more/${this.lastId}`)
+
+                    .then(function (resp) {
+                        console.log("response in handleMore: ", resp);
+
+                        that.cuteImages.push(...resp.data.moreImages);
+                        console.log("that.cuteImages, ", that.cuteImages);
+                    })
+                    .catch(function (err) {
+                        console.log("err in Get comments: ", err);
+                    });
             },
         },
     });

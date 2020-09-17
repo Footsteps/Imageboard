@@ -6,7 +6,20 @@ const db = spicedPg(
 
 //get images from database
 module.exports.getImages = () => {
-    return db.query(`SELECT * FROM images`);
+    return db.query(`SELECT * FROM images
+    ORDER BY id DESC
+    LIMIT 12`);
+};
+
+//get more images from database
+exports.getMoreImages = (lastId) => {
+    return db.query(
+        `SELECT * FROM images
+        WHERE id < $1
+        ORDER BY id DESC
+        LIMIT 10`,
+        [lastId]
+    );
 };
 
 //add image to database

@@ -36,30 +36,30 @@ app.use(
 );
 app.use(express.json());
 
-app.get("/pictures", (req, res) => {
-    console.log("GET /pictures has been hit");
-    let cutePictures;
+app.get("/images", (req, res) => {
+    console.log("GET /images has been hit");
+    let cuteImages;
     db.getImages()
         .then(({ rows }) => {
             //console.log("all tables: ", rows);
-            cutePictures = rows;
-            //console.log("cutePictures", cutePictures);
+            cuteImages = rows;
+            //console.log("cuteImages", cuteImages);
             res.json({
-                cutePictures: cutePictures,
+                cuteImages: cuteImages,
             });
         })
         .catch((err) => {
-            console.log("err in get Pictures: ", err);
+            console.log("err in get Images: ", err);
         });
 });
 
-app.get("/modal/:pictureId", (req, res) => {
+app.get("/modal/:imageId", (req, res) => {
     console.log("get modal was hit!!!");
-    const pictureId = req.params.pictureId;
+    const imageId = req.params.imageId;
     //console.log(req.params);
-    //console.log(pictureId);
+    //console.log(imageId);
 
-    db.modalImage(pictureId)
+    db.modalImage(imageId)
         .then(({ rows }) => {
             console.log("rows", rows);
             /*rows [
@@ -83,14 +83,36 @@ app.get("/modal/:pictureId", (req, res) => {
         });
 });
 
-app.post("/comments/:pictureId", (req, res) => {
+app.get("/more/:lastId", (req, res) => {
+    console.log("get more was hit!!!");
+    const lastId = req.params.lastId;
+    //console.log(req.params.lastId);
+    //console.log(imageId);
+    let moreImages;
+    db.getMoreImages(lastId)
+        .then(({ rows }) => {
+            console.log("rows", rows);
+
+            //console.log("all tables: ", rows);
+            moreImages = rows;
+            //console.log("moreImages", moreImages);
+            res.json({
+                moreImages: moreImages,
+            });
+        })
+        .catch((err) => {
+            console.log("err in getMoreImages: ", err);
+        });
+});
+
+app.post("/comments/:imageId", (req, res) => {
     console.log("post comments was hit!!!");
-    const pictureId = req.params.pictureId;
+    const imageId = req.params.imageId;
     //console.log(req.body.username);
     //console.log(req.body.comment);
-    //console.log(pictureId);
+    //console.log(imageId);
 
-    db.insertComment(req.body.username, req.body.comment, pictureId)
+    db.insertComment(req.body.username, req.body.comment, imageId)
         .then(({ rows }) => {
             console.log("rows in insert comment!!!", rows[0]);
 

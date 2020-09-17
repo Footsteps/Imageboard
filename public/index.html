@@ -7,15 +7,11 @@
     <title>🌔 Imageboard Project 🌔</title>
 </head>
 <body>
-    
-
     <main>
-        
-        
         <h1>{{heading}}</h1>
         <h2>{{subheading}}</h2>
         
-        <!-- form for uploading pictures-->
+        <!-- form for uploading iages-->
         <form>
             <!-- req.body.name-->
             <input v-model="title" type="text" name="title" placeholder="title">
@@ -26,56 +22,54 @@
             <button @click="handleClick">submit</button>
         </form>
 
-
-
-        <!-- rendering the pictures-->
-        <div v-if='cutePictures.length > 0' class="images">
+        <!-- rendering the images-->
+        <div v-if='cuteImages.length > 0' class="images">
            
-            <div class="container" v-for="picture in cutePictures" @click="handleClickModal(picture.id)">
+            <div class="container" v-for="image in cuteImages" @click="handleClickModal(image.id)">
                 
 
-                <img v-bind:src="picture.url" width="100%" height="80%"/>
+                <img v-bind:src="image.url" width="100%" height="80%"/>
                 <div class="card">
-                    <p>{{picture.title}}</p>
+                    <p>{{image.title}}, {{image.id}}</p>
                 </div>
             </div>
-        
-
-</div>
-  
-
-
-                
         </div>
-        <div v-else>No cute pictures...</div>
-        <!-- add modal with component-->
-        
-        <my-first-component v-model="name" :picture-id="pictureId" v-if='showModal' @close="closeModal"></first-component>
+        <div v-else>No cute images...</div>
+
+         <!-- More button-->
+        <button  @click="handleMore" class="more-button">More</button>
+
+        <!-- modal with component-->
+        <my-first-component v-model="name" :image-id="imageId" v-if='showModal' @close="closeModal"></first-component>
+
+
 </main>
 
+     <!-- code for modal with component-->
     <script id="my-first-component" type="text/x-template">
+        
         <div id="myModal" class="modal">
-            <!-- req.body.name-->
+            <!-- modal-->
             <button @click="handleClose" class="close">X</button>
+            
             <div class="modal-content">
-                
                 <img v-bind:src="url" width="100%" height="80%"/>
                 <h1>Hello there!</h1>
-                <p>Thanks for looking closer at my picture called {{title}}!</p>
+                <p>Thanks for looking closer at my image called {{title}}!</p>
                 <p>"{{description}}"</p>
                 <p>If you want, please leave a comment 🙂</p>
-            
                     
-            <!-- req.body.name-->
+            <!-- add a comment-->
                         <input v-model="username" type="text" name="username" placeholder="username">
                         <input v-model="comment" type="text" name="comment" placeholder="comment">
                         
                         <button @click="clickButton">Submit!</button>
+            <!-- show comments -->
                 <p>{{oldComments}}</p>
                 
-                </div>
-                
             </div>
+                
+            
         </div>
 
 </script>

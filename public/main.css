@@ -60,3 +60,9 @@ h2 {
     font-weight: bold;
     margin-right: 10px;
 }
+
+.more-button {
+    height: 50px;
+    width: 200px;
+    margin-left: 40%;
+}
