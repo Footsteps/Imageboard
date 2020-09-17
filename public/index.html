@@ -37,7 +37,7 @@
         <div v-else>No cute images...</div>
 
          <!-- More button-->
-        <button  @click="handleMore" class="more-button">More</button>
+        <button  @click="handleMore" v-show='isNight' class="more-button">More</button>
 
         <!-- modal with component-->
         <my-first-component v-model="name" :image-id="imageId" v-if='showModal' @close="closeModal"></first-component>

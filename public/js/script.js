@@ -98,6 +98,7 @@ console.log("woohoooo. sanity checking script.js");
             username: "",
             file: null,
             lastId: null,
+            isNight: true,
         },
         mounted: function () {
             console.log("mounted is running!!!!");
@@ -221,16 +222,23 @@ console.log("woohoooo. sanity checking script.js");
                         that.cuteImages.push(...resp.data.moreImages);
                         console.log("that.cuteImages, ", that.cuteImages);
 
+                        //figuring out lastId now
                         let arr = that.cuteImages;
                         let arrLast = arr[arr.length - 1];
                         console.log("arr Last", arrLast);
                         let lastId = arrLast.id;
                         console.log(lastId);
                         that.lastId = lastId;
+
+                        //getting the lowest id
                         console.log(
-                            "that hopefully with lastId again in handlemore: ",
-                            that
+                            "lowest id in lastId-picture",
+                            arrLast.lowestId
                         );
+                        if (lastId == arrLast.lowestId) {
+                            console.log("lowest id on the screeen!!!!!");
+                            that.isNight = false;
+                        }
                     })
                     .catch(function (err) {
                         console.log("err in Get comments: ", err);

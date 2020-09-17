@@ -92,8 +92,17 @@ app.get("/more/:lastId", (req, res) => {
     db.getMoreImages(lastId)
         .then(({ rows }) => {
             console.log("rows", rows);
+            /*
+            rows [ viele objekte
+                {
+    url: 'https://s3.amazonaws.com/spicedling/KBJCupswxVumAARf8bNTTsj10VVnPES0.jpg',
+    title: 'Thailand',
+    id: 6,
+    lowestId: 1
+  }
+            ]
+            */
 
-            //console.log("all tables: ", rows);
             moreImages = rows;
             //console.log("moreImages", moreImages);
             res.json({
