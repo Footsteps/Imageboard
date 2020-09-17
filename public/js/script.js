@@ -46,6 +46,45 @@ console.log("woohoooo. sanity checking script.js");
                     console.log("err in Get comments: ", err);
                 });
         },
+        //adding watchers!!!
+        watch: {
+            //whenver the prop imageID changes, this function will run
+            imageId: function () {
+                console.log(
+                    "message from watch: imageID changing!!!!",
+                    this.imageId
+                );
+                var that = this;
+                if (isNaN(this.imageId)) {
+                    console.log("imageID  is not a number!!!");
+                    that.$emit("close");
+                } else {
+                    axios
+                        .get(`/modal/${this.imageId}`)
+
+                        .then(function (resp) {
+                            if (resp.data.image[0] == undefined) {
+                                console.log("image is undefined!!!");
+                                that.$emit("close");
+                            }
+
+                            console.log(
+                                "resp.data.image in component modal: ",
+                                resp.data.image[0]
+                            );
+
+                            that.url = resp.data.image[0].url;
+                            that.title = resp.data.image[0].title;
+                            that.description = resp.data.image[0].description;
+                            //that.comments = "heading was clicked!!!";
+                        })
+                        .catch(function (err) {
+                            console.log("err in Get comments: ", err);
+                        });
+                }
+            },
+        },
+
         //all event handlers go in here!!!
         methods: {
             clickButton: function (e) {
@@ -87,10 +126,9 @@ console.log("woohoooo. sanity checking script.js");
             heading: "I 😽 PIXELS",
             subheading: "Latest Images",
             cuteImages: [],
-            //add property showModal for component --> show Modal wil not be rendered unless it becomes true
-            showModal: false,
+
             //add property of animal that was clicked
-            imageId: null,
+            imageId: location.hash.slice(1),
             //use props to pass info down to child
             //these data properties will store values of input fields
             title: "",
@@ -127,19 +165,25 @@ console.log("woohoooo. sanity checking script.js");
                 .catch(function (err) {
                     console.log("err in Get cuteImages: ", err);
                 });
+            //this code makes modal appear when I click different images because data property is being updated
+            window.addEventListener("hashchange", function () {
+                console.log("hash change has fired!!!");
+                console.log("location.hash", location.hash);
+                if (isNaN(location.hash.slice(1))) {
+                    console.log("imageID  is not a number!!!");
+                    location.hash = "";
+                } else {
+                    that.imageId = location.hash.slice(1);
+                }
+            });
         },
         methods: {
             //add method for component showModal
             //and attach function to html
-            handleClickModal: function (id) {
-                //console.log("handleclick modal!!!");
-                console.log("image id in vue instance: ", id);
-                this.showModal = true;
-                this.imageId = id;
-            },
             closeModal: function () {
                 console.log("trying to use emit for closing");
-                this.showModal = false;
+                this.imageId = null;
+                location.hash = "";
             },
 
             handleClick: function (e) {

@@ -25,13 +25,14 @@
         <!-- rendering the images-->
         <div v-if='cuteImages.length > 0' class="images">
            
-            <div class="container" v-for="image in cuteImages" @click="handleClickModal(image.id)">
-                
+            <div class="container" v-for="image in cuteImages" >
+                <a :href="'#' + image.id">
 
                 <img v-bind:src="image.url" width="100%" height="80%"/>
                 <div class="card">
                     <p>{{image.title}}, {{image.id}}</p>
                 </div>
+                </a>
             </div>
         </div>
         <div v-else>No cute images...</div>
@@ -40,7 +41,7 @@
         <button  @click="handleMore" v-show='isNight' class="more-button">More</button>
 
         <!-- modal with component-->
-        <my-first-component v-model="name" :image-id="imageId" v-if='showModal' @close="closeModal"></first-component>
+        <my-first-component :image-id="imageId" v-if='imageId' @close="closeModal"></first-component>
 
 
 </main>
