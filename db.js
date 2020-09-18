@@ -37,15 +37,19 @@ module.exports.addImage = (url, username, title, description) => {
     );
 };
 
+module.exports.lastId = () => {
+    return db.query(`SELECT max(id) FROM images`);
+};
+
 //get image for modal
 module.exports.modalImage = (id) => {
     return db.query(
         `SELECT *, (
-        SELECT id FROM images 
-        WHERE id = ($1-1)
+            SELECT id FROM images 
+            WHERE id = ($1-1)
         ) AS "nextId", (
             SELECT id FROM images 
-        WHERE id = ($1+1)
+            WHERE id = ($1+1)
         ) AS "previousId"
         FROM images 
         where id = $1 `,

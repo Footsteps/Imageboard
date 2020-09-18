@@ -92,6 +92,11 @@
     width: 50%;
 }
 
+#next,
+#prev {
+    font-weight: 800;
+}
+
 ::-webkit-input-placeholder {
     /* WebKit browsers */
 }

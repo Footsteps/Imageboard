@@ -70,8 +70,14 @@
             <button @click="handleClose" class="close">X</button>
             
             <div class="modal-content">
+                <a :href="'#' + previousId" id="prev" v-if="previousId != null">
+                    <span><<</span>
+                </a>
                 <img v-bind:src="url" width="100%" height="80%"/>
                 
+                <a :href="'#' + nextId" id="next" v-if="nextId != null">
+                    <span>>></span>
+                </a>
                 <h1>Hello there!</h1>
                 <p>Thanks for looking closer at my image called {{title}}!</p>
                 <p>"{{description}}"</p>
@@ -93,7 +99,7 @@
                 </div>
                  <div v-if='comments.length > 0' class="comments">
                     <div class="container" v-for="comment in comments">
-                    <p class="comment">{{comment.username}}, {{comment.created_at}}</p> 
+                    <p class="comment">{{comment.username}}</p> 
                     <p>{{comment.comment}}</p>
                     </div>
                 
