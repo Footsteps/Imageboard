@@ -39,7 +39,24 @@ module.exports.addImage = (url, username, title, description) => {
 
 //get image for modal
 module.exports.modalImage = (id) => {
-    return db.query(`SELECT * FROM images where  id = $1`, [id]);
+    return db.query(
+        `SELECT *, (
+        SELECT id FROM images 
+        WHERE id = ($1-1)
+        ) AS "nextId", (
+            SELECT id FROM images 
+        WHERE id = ($1+1)
+        ) AS "previousId"
+        FROM images 
+        where id = $1 `,
+        [id]
+    );
+};
+
+//get next image
+//get image for modal
+module.exports.nextImage = (id) => {
+    return db.query(`SELECT id FROM images where  id = ($1 - 1)`, [id]);
 };
 
 //get comments for modal

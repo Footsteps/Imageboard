@@ -71,6 +71,7 @@
             
             <div class="modal-content">
                 <img v-bind:src="url" width="100%" height="80%"/>
+                
                 <h1>Hello there!</h1>
                 <p>Thanks for looking closer at my image called {{title}}!</p>
                 <p>"{{description}}"</p>
@@ -81,17 +82,18 @@
                     <p class="text-center">If you want, please leave a comment!</p>
                     <div class="input-container">
                         <input v-model="username" type="text" name="username" placeholder="username">
-                        <input id="desc" v-model="comment" type="text" name="comment" placeholder="comment">
+                        <input class="desc" v-model="comment" type="text" name="comment" placeholder="comment">
                         
                         <button class="btn" @click="clickButton">Submit!</button>
                 </div>
             <!-- show comments -->
+            
                 <div class="container">
                         <p>{{comment}}</p>
                 </div>
                  <div v-if='comments.length > 0' class="comments">
                     <div class="container" v-for="comment in comments">
-                    <p id="comment">{{comment.username}}, {{comment.created_at}}</p> 
+                    <p class="comment">{{comment.username}}, {{comment.created_at}}</p> 
                     <p>{{comment.comment}}</p>
                     </div>
                 
@@ -102,6 +104,7 @@
                 
             
         </div>
+    </div>
 
 </script>
     

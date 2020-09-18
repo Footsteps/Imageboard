@@ -54,7 +54,7 @@ app.get("/images", (req, res) => {
 });
 
 app.get("/modal/:imageId", (req, res) => {
-    //console.log("get modal was hit!!!");
+    console.log("get modal was hit!!!");
     let imageId = req.params.imageId;
     //console.log(req.params);
     //console.log(imageId);
@@ -62,17 +62,6 @@ app.get("/modal/:imageId", (req, res) => {
     db.modalImage(imageId)
         .then(({ rows }) => {
             console.log("rows", rows);
-            /*rows [
-  {
-    id: 2,
-    url: 'https://s3.amazonaws.com/spicedling/wg8d94G_HrWdq7bU_2wT6Y6F3zrX-kej.jpg',
-    username: 'discoduck',
-    title: 'Elvis',
-    description: "We can't go on together with suspicious minds.",
-    created_at: 2020-09-14T15:39:24.455Z
-  }
-]
-*/
 
             res.json({
                 image: rows,
@@ -89,7 +78,7 @@ app.get("/comments/:imageId", (req, res) => {
     let comments;
     db.getComments(req.params.imageId)
         .then(({ rows }) => {
-            console.log("results", rows);
+            //console.log("results", rows);
             /*
             [
             {

@@ -15,6 +15,8 @@ console.log("woohoooo. sanity checking script.js");
                 comments: [],
                 username: "",
                 comment: "",
+                nextId: null,
+                previousId: null,
             };
         },
         //mounted will run as soon as html is rendered on screen
@@ -124,7 +126,7 @@ console.log("woohoooo. sanity checking script.js");
                             console.log("resp data image is undefined!!!!");
                             that.$emit("close");
                         } else {
-                            //console.log("response in get comments: ", resp);
+                            //console.log("response in get modal image: ", resp);
                             console.log(
                                 "resp.data.image in component modal: ",
                                 resp.data.image[0]
@@ -133,7 +135,8 @@ console.log("woohoooo. sanity checking script.js");
                             that.url = resp.data.image[0].url;
                             that.title = resp.data.image[0].title;
                             that.description = resp.data.image[0].description;
-                            //that.comments = "heading was clicked!!!";
+                            that.nextId = resp.data.image[0].nextId;
+                            that.previousId = resp.data.image[0].previousId;
                         }
                     })
                     .catch(function (err) {
