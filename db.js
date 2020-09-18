@@ -53,3 +53,16 @@ module.exports.insertComment = (username, comment, image_id) => {
         [username, comment, image_id]
     );
 };
+
+module.exports.getComments = (image_id) => {
+    return db.query(
+        `SELECT * FROM comments
+    WHERE image_id = $1
+    ORDER BY id DESC`,
+        [image_id]
+    );
+};
+
+module.exports.getAllComments = () => {
+    return db.query(`SELECT * FROM comments`);
+};

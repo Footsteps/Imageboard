@@ -74,16 +74,30 @@
                 <h1>Hello there!</h1>
                 <p>Thanks for looking closer at my image called {{title}}!</p>
                 <p>"{{description}}"</p>
-                <p>If you want, please leave a comment 🙂</p>
+                
                     
             <!-- add a comment-->
+                <div class="box">
+                    <p class="text-center">If you want, please leave a comment!</p>
+                    <div class="input-container">
                         <input v-model="username" type="text" name="username" placeholder="username">
-                        <input v-model="comment" type="text" name="comment" placeholder="comment">
+                        <input id="desc" v-model="comment" type="text" name="comment" placeholder="comment">
                         
-                        <button @click="clickButton">Submit!</button>
+                        <button class="btn" @click="clickButton">Submit!</button>
+                </div>
             <!-- show comments -->
-                <p>{{oldComments}}</p>
+                <div class="container">
+                        <p>{{comment}}</p>
+                </div>
+                 <div v-if='comments.length > 0' class="comments">
+                    <div class="container" v-for="comment in comments">
+                    <p id="comment">{{comment.username}}, {{comment.created_at}}</p> 
+                    <p>{{comment.comment}}</p>
+                    </div>
                 
+                </div>
+        
+                <div v-else>No comments yet...</div>
             </div>
                 
             

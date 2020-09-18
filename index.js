@@ -41,7 +41,7 @@ app.get("/images", (req, res) => {
     let cuteImages;
     db.getImages()
         .then(({ rows }) => {
-            //console.log("all tables: ", rows);
+            console.log("all tables: ", rows);
             cuteImages = rows;
             //console.log("cuteImages", cuteImages);
             res.json({
@@ -54,8 +54,8 @@ app.get("/images", (req, res) => {
 });
 
 app.get("/modal/:imageId", (req, res) => {
-    console.log("get modal was hit!!!");
-    const imageId = req.params.imageId;
+    //console.log("get modal was hit!!!");
+    let imageId = req.params.imageId;
     //console.log(req.params);
     //console.log(imageId);
 
@@ -80,6 +80,35 @@ app.get("/modal/:imageId", (req, res) => {
         })
         .catch((err) => {
             console.log("err in modal: ", err);
+        });
+});
+
+app.get("/comments/:imageId", (req, res) => {
+    console.log("comments route was hit");
+    console.log("image id in comments", req.params.imageId);
+    let comments;
+    db.getComments(req.params.imageId)
+        .then(({ rows }) => {
+            console.log("results", rows);
+            /*
+            [
+            {
+            id: 18,
+    username: 'angela',
+    comment: 'KOmmentar numer 4',
+    image_id: 29,
+    created_at: 2020-09-17T17:25:52.003Z
+            }
+    ]
+    */
+
+            comments = rows;
+            res.json({
+                comments: comments,
+            });
+        })
+        .catch((err) => {
+            console.log("err in comments", err);
         });
 });
 
