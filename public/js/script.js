@@ -99,14 +99,17 @@ console.log("woohoooo. sanity checking script.js");
                         //console.log("that in comments post: ", that);
                         console.log(
                             "response in post comment",
-                            resp.data.comment.comment
+                            //resp.data.comment.comment,
+                            resp.data
                         );
-
+                        that.username = resp.data.comment.username;
                         that.comment = resp.data.comment.comment;
                     })
                     .catch(function (err) {
                         console.log("error from post comments", err);
                     });
+                that.username = "";
+                that.comment = "";
             },
 
             handleClose: function (e) {

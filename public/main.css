@@ -177,7 +177,8 @@ h1 {
     border: 3px solid #fff;
 }
 
-.modal p {
+.modal p,
+h3 {
     padding: 2%;
 }
 
@@ -188,7 +189,12 @@ h1 {
     padding: 20px;
     border: 1px solid #888;
 }
-#comment {
+
+.modal-content .container {
+    box-shadow: 0 4px 8px 0 #440047;
+}
+
+.comment {
     text-decoration: underline;
     text-align: justify;
 }
