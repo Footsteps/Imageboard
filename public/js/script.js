@@ -310,6 +310,9 @@ console.log("woohoooo. sanity checking script.js");
                     .catch(function (err) {
                         console.log("err from POST upload", err);
                     });
+                this.title = "";
+                this.description = "";
+                this.username = "";
             },
             handleChange: function (e) {
                 console.log("handleChange is running!");

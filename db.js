@@ -8,7 +8,7 @@ const db = spicedPg(
 module.exports.getImages = () => {
     return db.query(`SELECT * FROM images
     ORDER BY id DESC
-    LIMIT 12`);
+    LIMIT 9`);
 };
 
 //get more images from database
@@ -21,7 +21,7 @@ exports.getMoreImages = (lastId) => {
   ) AS "lowestId" FROM images
   WHERE id < $1
   ORDER BY id DESC
-  LIMIT 12`,
+  LIMIT 9`,
         [lastId]
     );
 };
@@ -46,11 +46,14 @@ module.exports.lastId = () => {
 module.exports.modalImage = (id) => {
     return db.query(
         `SELECT *, (
-            SELECT id FROM images 
-            WHERE id = ($1-1)
-        ) AS "nextId", (
-            SELECT id FROM images 
-            WHERE id = ($1+1)
+            SELECT id FROM images
+            WHERE id < $1
+            ORDER BY id DESC
+            LIMIT 1
+        ) AS "nextId",(
+            SELECT id FROM images
+            WHERE id > $1
+            LIMIT 1
         ) AS "previousId"
         FROM images 
         where id = $1 `,
