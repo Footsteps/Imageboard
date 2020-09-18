@@ -42,6 +42,7 @@ module.exports.lastId = () => {
 };
 
 //get image for modal
+//subquerys for getting the next id and the previous id
 module.exports.modalImage = (id) => {
     return db.query(
         `SELECT *, (
@@ -86,4 +87,21 @@ module.exports.getComments = (image_id) => {
 
 module.exports.getAllComments = () => {
     return db.query(`SELECT * FROM comments`);
+};
+
+//delete a picture
+module.exports.deleteImage = (id) => {
+    return db.query(
+        `DELETE FROM images WHERE id = $1;
+    `,
+        [id]
+    );
+};
+
+module.exports.deleteComments = (id) => {
+    return db.query(
+        `DELETE FROM comments WHERE image_id = $1;
+    `,
+        [id]
+    );
 };

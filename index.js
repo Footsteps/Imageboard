@@ -101,6 +101,25 @@ app.get("/comments/:imageId", (req, res) => {
         });
 });
 
+app.get("/delete/:imageId", (req, res) => {
+    console.log("delete was hit!!!");
+    let imageId = req.params.imageId;
+    console.log("image id in Delete", imageId);
+    db.deleteImage(imageId)
+        .then((results) => {
+            //console.log("rows after delete", results);
+            db.deleteComments(imageId).then((results) => {
+                //console.log("results after delete comments", results);
+                res.json({
+                    results,
+                });
+            });
+        })
+        .catch((err) => {
+            console.log("err in delete: ", err);
+        });
+});
+
 app.get("/more/:lastId", (req, res) => {
     console.log("get more was hit!!!");
     const lastId = req.params.lastId;

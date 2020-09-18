@@ -113,6 +113,7 @@ console.log("woohoooo. sanity checking script.js");
                 console.log("x was clicked!!");
                 this.$emit("close");
             },
+
             getModalImage: function (arg) {
                 var that = arg;
                 console.log("getModalImage is running!!!");
@@ -141,6 +142,21 @@ console.log("woohoooo. sanity checking script.js");
                     })
                     .catch(function (err) {
                         console.log("err in Get modalImage: ", err);
+                    });
+            },
+            handleDelete: function (e) {
+                e.preventDefault();
+                console.log("delete was clicked!!!");
+                var that = this;
+                axios
+                    .get(`/delete/${this.imageId}`)
+                    .then(function (resp) {
+                        console.log("delete happened!!!");
+                        that.$emit("close");
+                        that.$emit("delete");
+                    })
+                    .catch(function (err) {
+                        console.log("err in delete", err);
                     });
             },
         },
@@ -207,6 +223,41 @@ console.log("woohoooo. sanity checking script.js");
                 //console.log("trying to use emit for closing");
                 this.imageId = null;
                 location.hash = "";
+            },
+            reloadPage: function () {
+                var that = this;
+                //console.log("that in reaload Page", that);
+                console.log("reloading is happening!!!");
+
+                axios
+                    .get("/images")
+
+                    .then(function (resp) {
+                        console.log(
+                            "resp.data.cuteImages: ",
+                            resp.data.cuteImages
+                        );
+
+                        that.cuteImages = resp.data.cuteImages;
+                        console.log(
+                            "that in get images after deletting",
+                            that.cuteImages
+                        );
+                        let arr = that.cuteImages;
+                        let arrLast = arr[arr.length - 1];
+                        console.log("arr Last", arrLast);
+                        let lastId = arrLast.id;
+                        console.log("lastId after delete", lastId);
+                        that.lastId = lastId;
+                        console.log(
+                            "that hopefully with lastId after reloading: ",
+                            that
+                        );
+                        that.isNight = true;
+                    })
+                    .catch(function (err) {
+                        console.log("err in Get cuteImages: ", err);
+                    });
             },
 
             handleClick: function (e) {
