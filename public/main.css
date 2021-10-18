@@ -1,0 +1,221 @@
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Abril Fatface", cursive;
+    color: #440047;
+}
+
+.text-center {
+    color: #440047;
+
+    font-size: 23px;
+    padding-top: 0.5%;
+    display: block;
+    text-align: center;
+}
+.box {
+    background-color: #fff;
+    opacity: 0.8;
+    border: 3px solid #440047;
+
+    border-radius: 3px 15px 5px 30px;
+    /*padding: 70px 100px;*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.input-container {
+    position: relative;
+    padding: 0.5%;
+}
+
+.input-container input {
+    border: 0;
+    margin: 3%;
+    border-bottom: 1px solid #555;
+    background: transparent;
+    font-size: 1em;
+    color: #440047;
+}
+
+.input-container input:focus {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #440047;
+}
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.btn {
+    background-color: #440047;
+    outline: none;
+    border: 1px solid grey;
+    color: #fff;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    /*margin-top: 0.2%;*/
+    margin-bottom: 0.2%;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.inputfile + label {
+    font-size: 1em;
+    color: white;
+    background-color: #440047;
+    display: inline-block;
+    cursor: pointer;
+    padding-right: 5%;
+    height: 40px;
+
+    text-transform: uppercase;
+    outline: none;
+    padding: 10px 10px;
+    margin-top: 0.2%;
+
+    border-radius: 2px;
+}
+
+#file {
+    color: grey;
+    padding-left: 0.5%;
+}
+
+.desc {
+    width: 50%;
+}
+
+#next,
+#prev {
+    font-weight: 800;
+}
+
+::-webkit-input-placeholder {
+    /* WebKit browsers */
+}
+:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    padding-left: 0.5%;
+    opacity: 1;
+}
+::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    padding-left: 0.5%;
+    opacity: 1;
+}
+:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    padding-left: 0.5%;
+}
+
+.images p {
+    background-color: white;
+}
+h1 {
+    margin-bottom: 3%;
+    text-shadow: 2px 2px 5px #440047;
+}
+
+.heading_form {
+    text-align: center;
+    border: 1px solid #440047;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 3%;
+}
+
+.subheading_pictures {
+    text-align: center;
+    margin-top: 0.5%;
+    border: 1px solid #440047;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 3%;
+}
+
+.images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-auto-flow: row;
+    gap: 10px;
+}
+
+.container {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    margin: 1em;
+    padding: 1em;
+    background-color: white;
+}
+
+.container:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card {
+    padding: 2px 16px;
+    background-color: white;
+}
+
+.modal {
+    position: fixed;
+    z-index: 1;
+    left: 20%;
+    top: 10%;
+
+    width: 60%;
+    height: 80%;
+    overflow: auto;
+    background-color: #440047;
+    box-shadow: -5px 3px 0px 39px #440047;
+    border-radius: 15px 15px 15px 15px;
+    border: 3px solid #fff;
+}
+
+.modal p,
+h3 {
+    padding: 2%;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 3% auto;
+
+    padding: 20px;
+    border: 1px solid #888;
+}
+
+.modal-content .container {
+    box-shadow: 0 4px 8px 0 #440047;
+}
+
+.comment {
+    text-decoration: underline;
+    text-align: justify;
+}
+
+.modal-content img {
+    width: 30%;
+    height: 10%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin-right: 10px;
+    margin-top: 4%;
+    background-color: #fff;
+}
+
+.more-button {
+    height: 50px;
+    width: 200px;
+    text-align: center;
+}

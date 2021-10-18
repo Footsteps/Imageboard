@@ -1,10 +1,126 @@
 <!doctype html>
 <html>
 <head>
-    <title></title>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/main.css" />
+    <title>🌔 Imageboard Project 🌔</title>
 </head>
 <body>
+    <main>
+        <div class="heading_form">
+        <h1>{{heading}}</h1>
+        
+        
+        <!-- form for uploading iages-->
+        <div class="box">
+        <form>
+            <h2 class="text-center">Add an Image</h2>
+            <div class="input-container">
+            <!-- req.body.name-->
+            <input v-model="title" type="text" name="title" placeholder="title" autocomplete="off">
+                
+            
+            <input id="desc" v-model="description" type="text" name="description" placeholder="Description" autocomplete="off">
+            
+            
+            <input v-model="username" type="text" name="username" placeholder="Username" autocomplete="off">
+            
+            
+            <input id="file" class="inputfile" @change="handleChange" type="file" name="file" accept="image/*">
+            <label for="file">Choose a file</label>  
+
+            <button class="btn" @click="handleClick">submit</button>
+            </div>
+        </form>
+        </div>
+        </div>
+
+        <div class="subheading_pictures">
+        <h2>{{subheading}}</h2>
+        <!-- rendering the images-->
+        <div v-if='cuteImages.length > 0' class="images">
+           
+            <div class="container" v-for="image in cuteImages" >
+                <a :href="'#' + image.id">
+
+                <img v-bind:src="image.url" width="100%" height="80%"/>
+                <div class="card">
+                    <p>{{image.title}}</p>
+                </div>
+                
+                </a>
+            </div>
+        </div>
+        <div v-else>No cute images...</div>
+
+         <!-- More button-->
+        <button  @click="handleMore" v-show='isNight' class="more-button">More</button>
+
+        <!-- modal with component-->
+        <my-first-component :image-id="imageId" v-if='imageId' @close="closeModal" @delete="reloadPage"></first-component>
+    </div>
+
+</main>
+
+     <!-- code for modal with component-->
+    <script id="my-first-component" type="text/x-template">
+        
+        <div id="myModal" class="modal">
+            <!-- modal-->
+            <button @click="handleClose" class="close">X</button>
+            
+            <div class="modal-content">
+                <a :href="'#' + previousId" id="prev" v-if="previousId != null">
+                    <span><<</span>
+                </a>
+                <img v-bind:src="url" width="100%" height="80%"/>
+                
+                <a :href="'#' + nextId" id="next" v-if="nextId != null">
+                    <span>>></span>
+                </a>
+                <h1>Hello there!</h1>
+                <h3>Thanks for looking closer at my image called {{title}}!</h3>
+                <h3>"{{description}}"</h3>
+                <button id="delete" class="btn" @click="handleDelete">delete</button>
+                    
+            <!-- add a comment-->
+                <div class="box">
+                    <p class="text-center">If you want, please leave a comment!</p>
+                    <div class="input-container">
+                        <input v-model="username" type="text" name="username" placeholder="username">
+                        <input class="desc" v-model="comment" type="text" name="comment" placeholder="comment">
+                        
+                        <button class="btn" @click="clickButton">Submit!</button>
+                </div>
+            <!-- show comments -->
+            
+                <div class="container">
+                        <p class="comment">{{username}}</p> 
+                        <p>{{comment}}</p>
+                </div>
+                 <div v-if='comments.length > 0' class="comments">
+                    <div class="container" v-for="comment in comments">
+                    <p class="comment">{{comment.username}}</p> 
+                    <p>{{comment.comment}}</p>
+                    </div>
+                
+                </div>
+        
+                <div v-else>No comments yet...</div>
+            </div>
+                
+            
+        </div>
+    </div>
+
+</script>
+    
+   
+
+    
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
