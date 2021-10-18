@@ -26,7 +26,7 @@ exports.upload = (req, res, next) => {
     const { filename, mimetype, size, path } = req.file;
     const promise = s3
         .putObject({
-            Bucket: "spicedling",
+            Bucket: "imageboardd",
             ACL: "public-read",
             Key: filename,
             Body: fs.createReadStream(path),
@@ -36,7 +36,7 @@ exports.upload = (req, res, next) => {
         .promise()
         .then(() => {
             // it worked!!! --> we get back to index.js
-            console.log("it worked!!!");
+            console.log("putObject worked!!!");
             next();
         })
         .catch((err) => {

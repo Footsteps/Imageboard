@@ -108,8 +108,8 @@ console.log("woohoooo. sanity checking script.js");
                     .catch(function (err) {
                         console.log("error from post comments", err);
                     });
-                that.username = "";
-                that.comment = "";
+                this.username = "";
+                this.comment = "";
             },
 
             handleClose: function (e) {
