@@ -12,9 +12,6 @@ TO DO
 LIMIT 12
 
 
-Here are your credentials.
-Access Key Id: AKIATB7CZGFLU5ODMZH3
-Access Key Secret: DUWH/xj5IPbYtj/WYxrWPkeXSXCwYcxhG/1LgoIl
 
 Please exercise the utmost caution when handling these credentials. DO NOT COMMIT THEM. If you do accidentally commit them, please return here to invalidate them and get a new set. 
 
