@@ -37,13 +37,10 @@ app.use(
 app.use(express.json());
 
 app.get("/images", (req, res) => {
-    console.log("GET /images has been hit");
     let cuteImages;
     db.getImages()
         .then(({ rows }) => {
-            console.log("all tables: ", rows);
             cuteImages = rows;
-            //console.log("cuteImages", cuteImages);
             res.json({
                 cuteImages: cuteImages,
             });
@@ -54,15 +51,10 @@ app.get("/images", (req, res) => {
 });
 
 app.get("/modal/:imageId", (req, res) => {
-    console.log("get modal was hit!!!");
     let imageId = req.params.imageId;
-    //console.log(req.params);
-    //console.log(imageId);
 
     db.modalImage(imageId)
         .then(({ rows }) => {
-            console.log("rows", rows);
-
             res.json({
                 image: rows,
             });
@@ -73,23 +65,18 @@ app.get("/modal/:imageId", (req, res) => {
 });
 
 app.get("/comments/:imageId", (req, res) => {
-    console.log("comments route was hit");
-    console.log("image id in comments", req.params.imageId);
     let comments;
     db.getComments(req.params.imageId)
         .then(({ rows }) => {
-            //console.log("results", rows);
             /*
-            [
-            {
+            rows:
+            [{
             id: 18,
-    username: 'angela',
-    comment: 'KOmmentar numer 4',
-    image_id: 29,
-    created_at: 2020-09-17T17:25:52.003Z
-            }
-    ]
-    */
+            username: 'angela',
+            comment: 'KOmmentar numer 4',
+            image_id: 29,
+            created_at: 2020-09-17T17:25:52.003Z
+            }]*/
 
             comments = rows;
             res.json({
@@ -102,14 +89,11 @@ app.get("/comments/:imageId", (req, res) => {
 });
 
 app.get("/delete/:imageId", (req, res) => {
-    console.log("delete was hit!!!");
     let imageId = req.params.imageId;
-    console.log("image id in Delete", imageId);
+
     db.deleteImage(imageId)
         .then((results) => {
-            //console.log("rows after delete", results);
             db.deleteComments(imageId).then((results) => {
-                //console.log("results after delete comments", results);
                 res.json({
                     results,
                 });
@@ -121,27 +105,21 @@ app.get("/delete/:imageId", (req, res) => {
 });
 
 app.get("/more/:lastId", (req, res) => {
-    console.log("get more was hit!!!");
     const lastId = req.params.lastId;
-    //console.log(req.params.lastId);
-    //console.log(imageId);
     let moreImages;
     db.getMoreImages(lastId)
         .then(({ rows }) => {
-            console.log("rows", rows);
             /*
-            rows [ viele objekte
-                {
-    url: 'https://s3.amazonaws.com/spicedling/KBJCupswxVumAARf8bNTTsj10VVnPES0.jpg',
-    title: 'Thailand',
-    id: 6,
-    lowestId: 1
-  }
-            ]
-            */
+            rows 
+            [{
+             url: 'https://s3.amazonaws.com/spicedling/KBJCupswxVumAARf8bNTTsj10VVnPES0.jpg',
+            title: 'Thailand',
+            id: 6,
+            lowestId: 1
+            }]*/
 
             moreImages = rows;
-            //console.log("moreImages", moreImages);
+
             res.json({
                 moreImages: moreImages,
             });
@@ -152,16 +130,10 @@ app.get("/more/:lastId", (req, res) => {
 });
 
 app.post("/comments/:imageId", (req, res) => {
-    console.log("post comments was hit!!!");
     const imageId = req.params.imageId;
-    //console.log(req.body.username);
-    //console.log(req.body.comment);
-    //console.log(imageId);
 
     db.insertComment(req.body.username, req.body.comment, imageId)
         .then(({ rows }) => {
-            console.log("rows in insert comment!!!", rows[0]);
-
             res.json({
                 comment: rows[0],
             });
@@ -172,8 +144,8 @@ app.post("/comments/:imageId", (req, res) => {
 });
 
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
-    console.log("file", req.file);
     /*
+    req: file, body interessant
             file {
                 fieldname: 'file',
                 originalname: 'IMG_0238.JPG',
@@ -186,24 +158,11 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
             }
 
     */
-    console.log("input", req.body);
-
-    /*
-        input [Object: null prototype] {
-                title: 'a',
-                description: 'a',
-                username: 'a'
-                }
-
-
-    */
     const filename = req.file.filename;
-    //console.log(filename);
+
     const url = `${s3Url}${filename}`;
-    //console.log(url);
-    console.log("req-body in post request: ", req.body);
+
     if (req.file) {
-        console.log("file is there, giving it to addImage now");
         db.addImage(
             url,
             req.body.username,
@@ -211,21 +170,6 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
             req.body.description
         )
             .then(({ rows }) => {
-                console.log("rows in add Image: ", rows[0]);
-                /*
-                rows in add Image:  [
-                     {
-                    id: 4,
-                    url: 'https://s3.amazonaws.com/spicedling/8JhpdRFOTe6SNE9HwUOy0NfH6YD6yFqa.jpg',
-                    username: 'Angela',
-                    title: 'Vietnam',
-                    description: 'Angkor Wat  again!',
-                    created_at: 2020-09-15T15:46:11.985Z
-                    }
-                ]
-                */
-                //let image = rows[0];
-                //console.log(image);
                 res.json({
                     image: rows[0],
                 });
@@ -234,8 +178,8 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
                 console.log("err in addImage: ", err);
             });
 
-        //do data base insert of file
-        /*res.json({
+        /*do data base insert of file
+        res.json({
             success: true,
         });
         */
