@@ -15,10 +15,18 @@
         <!-- form for uploading iages-->
         <div class="box">
         <form>
-            <h2 class="text-center">Add an Image</h2>
+            <h2 class="text-center">Add an Image </h2>
+            <h3 class="text-center">(Limit: 2MB) </h3>
             <div class="input-container">
+        <!-- error handling-->
+    <p v-if="errors.length">
+        <p v-for="error in errors">{{ error }}</p>
+            
+        
+    </p>   
+
             <!-- req.body.name-->
-            <input v-model="title" type="text" name="title" placeholder="title" autocomplete="off">
+            <input v-model="title" type="text" name="title" placeholder="Title" autocomplete="off">
                 
             
             <input id="desc" v-model="description" type="text" name="description" placeholder="Description" autocomplete="off">

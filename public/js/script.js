@@ -78,7 +78,6 @@ console.log("sanity checking");
             },
 
             handleClose: function (e) {
-                console.log("x was clicked!!");
                 this.$emit("close");
             },
 
@@ -123,6 +122,8 @@ console.log("sanity checking");
     new Vue({
         el: "main",
         data: {
+            //errors
+            errors: [],
             heading: "I 😽 PIXELS",
             subheading: "Latest Images",
             cuteImages: [],
@@ -198,31 +199,39 @@ console.log("sanity checking");
 
             handleClick: function (e) {
                 e.preventDefault();
+                this.errors = [];
+                // error handling: file size
 
-                var formData = new FormData();
-                formData.append("title", this.title);
-                formData.append("description", this.description);
-                formData.append("username", this.username);
-                formData.append("file", this.file);
+                if (this.file.size > 1999999) {
+                    this.errors.push("Please choose a file under 2MB.");
+                } else if (this.title === "" || this.username === "") {
+                    this.errors.push("Please enter a title and/or a username");
+                } else {
+                    var formData = new FormData();
+                    formData.append("title", this.title);
+                    formData.append("description", this.description);
+                    formData.append("username", this.username);
+                    formData.append("file", this.file);
 
-                var that = this;
+                    var that = this;
 
-                axios
-                    .post("/upload", formData)
-                    .then(function (resp) {
-                        /*typeof that.cuteImages);
+                    axios
+                        .post("/upload", formData)
+                        .then(function (resp) {
+                            /*typeof that.cuteImages);
                         data: success: false (wenn ich kein Bild hochgeladen hab)
                         data: {success: true}
                         get data & put it in an array
                         */
-                        that.cuteImages.unshift(resp.data.image);
-                    })
-                    .catch(function (err) {
-                        console.log("err from POST upload", err);
-                    });
-                this.title = "";
-                this.description = "";
-                this.username = "";
+                            that.cuteImages.unshift(resp.data.image);
+                        })
+                        .catch(function (err) {
+                            console.log("err from POST upload", err);
+                        });
+                    this.title = "";
+                    this.description = "";
+                    this.username = "";
+                }
             },
             handleChange: function (e) {
                 this.file = e.target.files[0];
