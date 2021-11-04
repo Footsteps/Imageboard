@@ -41,7 +41,11 @@ console.log("sanity checking");
                 if (isNaN(this.imageId)) {
                     that.$emit("close");
                 } else {
+                    console.log("this in imageID", this);
+                    this.comment = "";
+                    this.username = "";
                     this.getModalImage(this);
+
                     axios
                         .get(`/comments/${this.imageId}`)
                         .then(function (resp) {
@@ -68,11 +72,13 @@ console.log("sanity checking");
                     })
                     .then(function (resp) {
                         that.username = resp.data.comment.username;
+
                         that.comment = resp.data.comment.comment;
                     })
                     .catch(function (err) {
                         console.log("error from post comments", err);
                     });
+                //hier!!! this
                 this.username = "";
                 this.comment = "";
             },
@@ -82,6 +88,7 @@ console.log("sanity checking");
             },
 
             getModalImage: function (arg) {
+                console.log("getmodalimage is running!!!");
                 var that = arg;
 
                 axios
@@ -91,6 +98,7 @@ console.log("sanity checking");
                         if (resp.data.image[0] == undefined) {
                             that.$emit("close");
                         } else {
+                            console.log(resp.data);
                             that.url = resp.data.image[0].url;
                             that.title = resp.data.image[0].title;
                             that.description = resp.data.image[0].description;
@@ -159,7 +167,8 @@ console.log("sanity checking");
                     console.log("err in Get cuteImages: ", err);
                 });
             //this code makes modal appear when I click different images because data property is being updated
-            window.addEventListener("hashchange", function () {
+            window.addEventListener("hashchange", function (e) {
+                console.log("hashchange is ronning!!");
                 if (isNaN(location.hash.slice(1))) {
                     location.hash = "";
                 } else {

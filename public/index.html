@@ -63,7 +63,7 @@
         <div v-else>No cute images...</div>
 
          <!-- More button-->
-        <button  @click="handleMore" v-show='isNight' class="more-button">More</button>
+        <button  v-if='cuteImages.length > 0' @click="handleMore" v-show='isNight' class="more-button">More</button>
 
         <!-- modal with component-->
         <my-first-component :image-id="imageId" v-if='imageId' @close="closeModal" @delete="reloadPage"></first-component>

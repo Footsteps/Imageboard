@@ -68,6 +68,7 @@ app.get("/modal/:imageId", (req, res) => {
 
 app.get("/comments/:imageId", (req, res) => {
     let comments;
+    console.log("req.params.image id in get comments", req.params.imageId);
     db.getComments(req.params.imageId)
         .then(({ rows }) => {
             /*
