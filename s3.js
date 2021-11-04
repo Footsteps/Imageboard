@@ -36,7 +36,7 @@ exports.upload = (req, res, next) => {
         .promise()
         .then(() => {
             // it worked!!! --> we get back to index.js
-            console.log("putObject worked!!!");
+            //console.log("putObject worked!!!");
             next();
         })
         .catch((err) => {

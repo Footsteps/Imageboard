@@ -39,6 +39,7 @@ app.use(express.json());
 
 app.get("/images", (req, res) => {
     let cuteImages;
+
     db.getImages()
         .then(({ rows }) => {
             cuteImages = rows;
