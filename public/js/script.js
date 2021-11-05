@@ -181,7 +181,6 @@ console.log("sanity checking");
             },
             reloadPage: function () {
                 var that = this;
-                console.log("reload page is running");
 
                 axios
                     .get("/images")
