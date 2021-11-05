@@ -107,7 +107,7 @@
                         <p class="comment">{{username}}</p> 
                         <p>{{comment}}</p>
                 </div>
-                 <div v-if='comments.length > 0' class="comments">
+                 <div v-if='comments.length > 0 || comment != ""' class="comments">
                     <div class="container" v-for="comment in comments">
                     <p class="comment">{{comment.username}}</p> 
                     <p>{{comment.comment}}</p>

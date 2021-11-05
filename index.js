@@ -96,9 +96,7 @@ app.get("/delete/:imageId", (req, res) => {
 
     db.deleteComments(imageId)
         .then((results) => {
-            console.log("results in delete comments", results);
             db.deleteImage(imageId).then((results) => {
-                console.log("Delete image is running!!!", results);
                 res.json({
                     results,
                 });
