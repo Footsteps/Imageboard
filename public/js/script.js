@@ -12,6 +12,7 @@ console.log("sanity checking");
                 description: "",
                 comments: [],
                 username: "",
+                name: "",
                 comment: "",
                 nextId: null,
                 previousId: null,
@@ -43,7 +44,7 @@ console.log("sanity checking");
                     that.$emit("close");
                 } else {
                     this.comment = "";
-                    this.username = "";
+                    this.name = "";
                     this.getModalImage(this);
 
                     axios

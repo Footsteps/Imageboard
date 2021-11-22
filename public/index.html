@@ -88,7 +88,7 @@
                     <span>>></span>
                 </a>
                 <h1>Hello there!</h1>
-                <h3>Thanks for looking closer at my image called {{title}}!</h3>
+                <h3>Thanks for looking closer at my image called "{{title}}"!</h3>
                 <h3>"{{description}}"</h3>
                 <button id="delete" class="btn" @click="handleDelete">delete</button>
                     
@@ -103,7 +103,7 @@
                 </div>
             <!-- show comments -->
             
-                <div class="container">
+                <div v-if='username != "" || comment != ""' class="container">
                         <p class="comment">{{username}}</p> 
                         <p>{{comment}}</p>
                 </div>
