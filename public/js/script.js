@@ -74,13 +74,12 @@ console.log("sanity checking");
                     .then(function (resp) {
                         that.username = resp.data.comment.username;
                         that.comment = resp.data.comment.comment;
+                        that.username = "";
+                        that.comment = "";
                     })
                     .catch(function (err) {
                         console.log("error from post comments", err);
                     });
-
-                this.username = "";
-                this.comment = "";
             },
 
             handleClose: function (e) {
