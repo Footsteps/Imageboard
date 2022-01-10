@@ -194,6 +194,5 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 });
 
 if (require.main == module) {
-    app.listen(process.env.PORT || 8080, () => console.log("listening!!!"));
+    app.listen(process.env.PORT || 8080, () => console.log("listening!!!!"));
 }
-//app.listen(8080, () => console.log("listening!!!"));
