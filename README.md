@@ -11,5 +11,5 @@ Using node.js, Vue.js, Postgres and AWS S3, this project is an app where one can
 ## technologies
 
 -   node.js (using the modules express, multer, uid-safe)
--   postgres (using the module spiced-pg)
+-   postgres 
 -   aws (using aws-sdk)
