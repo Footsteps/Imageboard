@@ -37,7 +37,7 @@
             
             <input id="file" class="inputfile" @change="handleChange" type="file" name="file" accept="image/*">
             <label for="file">Choose a file</label>  
-
+            <br>
             <button class="btn" @click="handleClick">submit</button>
             </div>
         </form>
@@ -103,7 +103,7 @@
                 </div>
             <!-- show comments -->
             
-                <div v-if='username != "" || comment != ""' class="container">
+                <div ref="comment" v-if='username != "" || comment != ""' class="container">
                         <p class="comment">{{username}}</p> 
                         <p>{{comment}}</p>
                 </div>

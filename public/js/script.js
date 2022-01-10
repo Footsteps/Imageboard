@@ -1,4 +1,4 @@
-console.log("sanity checking");
+//console.log("sanity checking");
 
 (function () {
     Vue.component("my-first-component", {
@@ -74,8 +74,6 @@ console.log("sanity checking");
                     .then(function (resp) {
                         that.username = resp.data.comment.username;
                         that.comment = resp.data.comment.comment;
-                        that.username = "";
-                        that.comment = "";
                     })
                     .catch(function (err) {
                         console.log("error from post comments", err);
