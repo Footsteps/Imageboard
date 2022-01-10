@@ -12,11 +12,8 @@ TO DO
 LIMIT 12
 
 
-<<<<<<< HEAD:notizen.txt
 Here are your credentials.
 
-=======
->>>>>>> 919a67f2a4c7fbaeded75a4cf58e10e406b00129:readme.txt
 
 Please exercise the utmost caution when handling these credentials. DO NOT COMMIT THEM. If you do accidentally commit them, please return here to invalidate them and get a new set. 
 
